@@ -47,7 +47,7 @@ class BC
         //包含函数库
         require_once(BC_FUNC_PATH.'Extend.func.php'); //自定义扩展函数库
         require_once(BC_FUNC_PATH.'Global.func.php'); //系统默认通用函数库
-        
+
         //定义项目根文件及静态文件相对目录
         !defined('ROOT_PATH') && define('ROOT_PATH', rtrim(BC::config('root_path'), '/').'/'); //静态文件相对目录
         $_assetsPath = BC::config('assets_path') ? rtrim(BC::config('assets_path'), '/').'/' : ROOT_PATH;
@@ -206,7 +206,7 @@ class BC
             if ( isset($_server['REQUEST_URI']) )
             {
                 $requestUri = $_server['REQUEST_URI'];
-				if ($_server['SCRIPT_NAME'])
+				if ($requestUri != $_server['SCRIPT_NAME'])
 				{
 					$requestUri = ltrim(substr($requestUri, strlen(dirname($_server['SCRIPT_NAME']))), '/');
 				}
@@ -234,8 +234,9 @@ class BC
         }
 
         BC::loader()->request->server->set('PATH_INFO', $pathInfo);
-        $pathInfo && $pathInfoArray = explode('/', trim($pathInfo, '/'));
-		
+        $pathInfo = trim($pathInfo, '/');
+        $pathInfo && $pathInfoArray = explode('/', $pathInfo);
+
         if (!isset($pathInfoArray[0]))
         {
             $_routeConfig = BC::config('route');

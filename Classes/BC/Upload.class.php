@@ -49,7 +49,7 @@ class BC_Upload
             {
 				//取当前文件名、临时文件名、大小、扩展名，后面将用到。
 				$filename = $this->uploadFiles['name'][$i];
-				$tmpName = Filter::unEscape($this->uploadFiles['tmp_name'][$i]);
+				$tmpName = $this->uploadFiles['tmp_name'][$i];
 				$size = $this->uploadFiles['size'][$i];
 				$mimeType = $this->uploadFiles['type'][$i];
 				$ext = File::getExt($this->uploadFiles['name'][$i]);

@@ -41,6 +41,14 @@ if (!function_exists('_url'))
         {
             $url = Url::getCurrentUrl();
         }
+        elseif (($position = strpos($path, 'http://')) !== false)
+        {
+            $url = '';
+        }
+        elseif (($position = strpos($path, 'www')) !== false)
+        {
+            $url = 'http://';
+        }
         elseif ($internal === true)
         {
             if ($path == '#') return $path;
